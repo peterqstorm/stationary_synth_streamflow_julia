@@ -36,14 +36,14 @@ for i = 1:length(files)
         end
     end
     Qfinal[:, i] = temp
-    
+
 end
 
 
 CSV.write(datadir*"QDaily.txt", Tables.table(Qfinal), delim=" ")
 
 
-# reshape into nyears x 365 and nyears x 12 for daily and monthly 
+# reshape into nyears x 365 and nyears x 12 for daily and monthly
 # statistical validation figures
 Qfinal_monthly = stationary_generator.convert_data_to_monthly(Qfinal)
 

@@ -11,7 +11,6 @@ using LinearAlgebra
 push!( LOAD_PATH, "./" )
 using stationary_generator
 
-
 datadir = pwd() * "/data/"
 
 Qdaily = CSV.read(datadir*"Qdaily.txt", delim=" ")
@@ -32,16 +31,34 @@ else
     mkdir(datadir*"\\validation\\")
 end
 
-for k = 1:size(num_realizations, 1)
-  Qd_cg = stationary_generator.combined_generator(Qdaily, num_realizations[k], num_years[k])
+@time for k = 1:length(num_realizations)
+    @time Qd_cg = stationary_generator.combined_generator(Qdaily, num_realizations[k], num_years[k])
 
-  #back-transform data
+    #back-transform data
+    for i = 1:size(Qd_cg, 1)
+        Qd_cg[i][:, 4] = log.(Qd_cg[i][:, 4])
+    end
 
-  Qd_cg[:][:, 4] = log.(Qd_cg[:][:, 4])
+    Qd2 = zeros(365 * num_years[k] * num_realizations[k])
+    q_ = zeros(num_realizations[k], 365 * num_years[k])
+    Q_monthly = zeros(num_realizations[k] * num_years[k], 12)
 
-  #write simulations to file
-  # for i = 1:Nsites
-  # end
+    for i = 1: Nsites
+        #put into array of [realizations, 365*num_yrs]
+        for j = 1: num_realizations[k]
 
+            q_[i] = Qd_cg[j][:, i]'[1]
+        end
+
+        #write to csv for daily
+        file_name = datadir * "\\validation\\" * sites[i] *string(num_realizations[k]) * "x" * string(num_years[k]) * "_daily.csv"
+        CSV.write(file_name, Tables.table(q_), writeheader=false)
+
+        #convert to monthly, then write to csv
+        Qd2 = reshape(q_, :, 1)
+        Q_monthly[:, :] = stationary_generator.convert_data_to_monthly(Qd2)[1]
+        file_name = datadir * "\\validation\\" * sites[i] *string(num_realizations[k]) * "x" * string(num_years[k]) * "_monthly.csv"
+        CSV.write(file_name, Tables.table(Q_monthly), writeheader=false)
+    end
 
 end

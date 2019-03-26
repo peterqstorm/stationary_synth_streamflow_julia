@@ -1,0 +1,11 @@
+# ignore data files
+*.txt
+*.csv
+
+# keep data files
+!/data/evapConowingo_1932-2001.csv
+!/data/evapMuddyRun_1932-2001.csv
+!/data/QDaily.txt
+!/data/qLateral_1932-2001.csv
+!/data/qMarietta_1932-2001.csv
+!/data/qMuddyRun_1932-2001.csv
