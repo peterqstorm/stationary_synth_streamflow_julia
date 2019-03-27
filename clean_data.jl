@@ -1,5 +1,5 @@
 
-# This loads the mat files and combines the Q [cfs] time series into one
+# This loads the data files and combines the Q [cfs] time series into one
 # txt file. Removes leap years by averaging with the prior date().
 
 using Tables

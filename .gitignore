@@ -1,6 +1,7 @@
-# ignore data files
+# ignore files
 *.txt
 *.csv
+/.ipynb_checkpoints
 
 # keep input data files
 !/data/evapConowingo_1932-2001.csv
