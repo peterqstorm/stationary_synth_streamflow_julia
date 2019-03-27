@@ -448,7 +448,7 @@ module stationary_generator
 
 
 
-        start       = (year - 1) * 365 + sum(days_in_each_month[1:(month - 1)]) + 1
+        start       = (year - 1) * 365 + sum(days_in_each_month[1:(month - 1)]) + 10000000 #originally +1
         daily_flows = shifted_Qdaily[start:start + days_in_each_month[month] - 1, :]
         py          = zeros(size(daily_flows, 1), size(daily_flows, 2))
 
@@ -459,5 +459,5 @@ module stationary_generator
 
         return py, yearID
 
-    end    
+    end
 end
