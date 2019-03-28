@@ -10,7 +10,7 @@ This is a Jupyter Notebook adaptation of the Kirsch-Nowak Streamflow Generator f
 
 This code was developed for the following blogpost: 
 
-Please note that this model has not been validated at this time; it appears that there may be some errors in the outputs. Please contact me or flag an issue on GitHub if you are aware of what the issues may be.
+Please note that this model has not been validated at this time; it appears that there may be some errors in the outputs. Please contact me or flag an issue on GitHub if you are aware of what the issues may be. QDaily outputs appear to match MATLAB outputs, but there may be issues with daily and monthly site-specific output files. 
 
 
 This code was developed in and is subsequently stable using Julia V1.0.3. 
